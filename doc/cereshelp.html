@@ -1,0 +1,369 @@
+<A NAME=top>
+<HR><TITLE>Ceres Help</TITLE>
+<CENTER><H1><I>Ceres Help</I></H1></CENTER><HR><HR>
+
+<P> If you have any comments on Ceres, send a mail to<P>
+<DL><DD><A HREF="http://www.notam.uio.no/~oyvindha/">oyvindha</A>@notam.uio.no</TT> (Øyvind Hammer).
+</DL>
+<P>
+
+
+<A NAME=2><HR><H2>Introduction</H2>
+Ceres is a simple program for displaying sonograms and for sound effects in
+the frequency domain.
+<P>
+Ceres is started simply with the command "ceres". You may give an
+FFT size parameter as a command-line parameter (for advanced users!).
+Or a sound file name may be given as a parameter. An empty
+window will appear with a menu bar at the top.
+<P>
+Select "Load & Analyze" in the "File" menu, and select a sound file. Ceres
+accepts any sampling rate, mono, stereo and quadra.
+<P>
+The file will then undergo a phase vocoder FFT analysis with N=1024.
+The file will either be stored in memory or on disk, dependent of its size.
+A sonogram is drawn as the analysis progresses.
+<P>
+At any time, you may change the color map of the display in the
+"Edit->Preferences->Display" dialogue.
+<P>
+You may now use the options in the "Transform" menu to change the spectral
+data, as described below.
+<P>
+To hear the result, select the "Play" button in the "File" menu, or press the
+'p' key.
+<P>
+In the "Edit->Preferences->Resynthesis" dialogue, you may control the way the sound is
+resynthesized. "Time stretch" does what it says, but the result may
+have irritating pulsation in it. To avoid this, and to avoid a "gritty" sound
+that may result from some transforms, select "Additive synthesis". This will
+select an additive synthesis method instead of inverse FFT.
+<I>Note! The Additive synthesis function was out of order for about three
+years, but is now working as good or better as ever (version 0.11).</I>
+<I>Note2! From version 0.20 its even 3 times faster than earlier versions.</I>
+<P>
+
+<HR><H2>Transforms</H2>
+
+Many of the transform parameters can be controlled over time using
+a control function. Press F5, F6 or F7 to
+display a breakpoint curve which can be edited using the middle mouse
+button (press Backspace or Delete to remove a node).
+<P>
+Using the right mouse button, you may select a rectangular area in the
+spectrum. Consecutive transforms and exports will then only apply to
+this area.
+<P>
+All the transforms have 5 buttons at the bottom of the dialogs;
+"OK", "Cancel", "Preview", "Preview Realtime" and "Stop".
+The "Preview" button takes a certain length of the sound and transforms
+and plays it. The "Preview Realtime" takes very small parts of the
+sound and process and plays it. Meaning that you can change the values
+while playing, and the change will have an immidiate effect on the sound.
+However, for some transforms, the sound will be completely different
+from the result you get when pressing "Preview" or "Ok". The "Stop"
+button stops a "Preview" or "Realtime Preview".
+
+<P>
+
+<H3>Sieve</H3>
+<I>Sieve</I> is a useful operation which will only retain the N strongest
+frequency components for each analysis window. This makes an interesting sound
+in itself for N less than about 20, and it can be used as an effective noise
+reduction method for larger N. Also, it is often necessary to reduce the amount
+of data with "Sieve" before you export the analysis to a Csound score file (see
+below).
+<P>
+You may select any N ("Number of harmonics"). This value N may be
+multiplied continuously by a factor which you select for exponential increase
+(A>1) or decrease (A<1). A=0.5 will thus apply an envelope in such a way that N
+is halved each second. This is great for "morphing", because you can let one
+sound "desintegrate" and another "integrate", and then mix the two together.
+You can also control N from the control function by ticking the box.
+<P>
+A composer here wanted more "life in the top", and so you can weight high
+frequencies with the "Boost" parameter. Try the value 1.
+<P>
+
+<H3>Spectrum shift</H3>
+<I>Spectrum shift</I> will add the specified number of Hz (positive or negative)
+to each frequency component. This will upset the harmonic relationship, and
+sounds somewhat like ring modulation. The "Multiplication pr. sec" and
+"Control function" fields work as for Sieve. Frequency components which
+fall below 0 Hz or above Fs/2 will be removed.
+<P>
+
+<H3>Shear</H3>
+<I>Shear</I> will delay each frequency component according to its frequency,
+producing a dispersion effect.
+<P>
+
+<H3>Blur</H3>
+<I>Blur</I> will low-pass-filter the amplitude and frequency values
+along the time axis, blurring the spectral development. It is recommended
+to run "Keep peaks only" before blurring. The blur value is used directly in
+the filter recursion formula: y=blur*y+(1-blur)*x. Values close to 1 (like
+0.99) are most interesting. There is also a "secret" feature, allowing you
+to specify negative values (try -0.99) in order to high-pass-filter the
+spectral development. This will reduce gain significantly, so boost it up
+again using the "Gain" function.
+<P>
+<I>Blur</I> can also be used for spectral freezing, by setting the blur value
+to 1. This is probably only useful when applied inside a limited area (as
+marked with the right mouse button).
+<P>
+Finally, the filter may be reset to the original spectrum at a fixed
+frequency, to produce a sample-and-hold effect.
+
+<H3>Comb filter</H3>
+<I>Comb filter</I> keeps only partials with frequencies that are
+multiples of the given fundamental frequency, or less than one half FFT channel
+away from such a multiple. By pitch-tracking
+(Extract->Pitch) and using this as the control function, you should
+ideally be able to remove all inharmonic components.
+<P>
+
+<H3>Mirror</H3>
+<I>Mirror</I> will fold all frequency components around the specified
+mirror frequency - those below it will flip above, and vice versa.
+<P>
+
+<H3>Exponentiate</H3>
+<I>Exponentiate</I> will raise all frequencies to the power which you
+specify. This value should be close to 1 to avoid extreme results.
+<P>
+
+<H3>Spread</H3>
+<I>Spread</I> displaces the frequency components randomly. Will normally
+give noisy results. Using the "Amplitude sensitivity" parameter, you may
+enforce increased spreding for larger amplitudes.
+<P>
+
+<H3>Pitch shift</H3>
+<I>Pitch shift</I> will multiply each frequency with the specified factor, so
+that 0.5 will drop you one octave, 1.5 will increase the pitch by a fifth, etc.
+Again, you may specify an exponential envelope for glissando effects.
+A=1.05946, for example, will increase the pitch by one semitone each second.
+"Static frequency" is rather fun. This specifies the frequency which will
+remain stationary (normally 0 Hz). If you set this to 800 Hz, you may let
+all harmonics converge to (A<1) or diverge from (A>1) 800 Hz.
+<P>
+
+<H3>Filter</H3>
+<I>Filter</I> will remove all frequencies between the two you specify.
+<P>
+
+<H3>Gain</H3>
+<I>Gain</I> allows you to scale all amplitudes with a factor. Especially
+useful when using inside a marked region, to remove or amplify a limited
+area.
+<P>
+
+<H3>Null phase</H3>
+<I>Null phase</I> is an experimental feature which zeroes all phase (and therefore
+frequency) information. You may try it, but the result is not sensational.
+You will get some kind of deep "robot" sound.
+<P>
+
+<H3>Keep peaks only</H3>
+<I>Keep peaks only</I> will remove all partials except the peaks. This is
+useful to limit the amount of data for export, and may also be used as a
+pre-processing step to improve the quality of some transforms.
+<P>
+
+<H3>Average</H3>
+<I>Average</I> just averages the spectra over time, making one continuous note.
+Useful for subsequent LPC analysis etc., to extract the "mean" frequency
+characteristic of a person talking, for instance.
+<P>
+
+<H3>Move to pitch grid</H3>
+<I>Move to pitch grid</I> is a function which lets you move the frequency
+components to a fixed set of frequencies (a chord) called a "pitch grid".
+Choose "Edit->Preferences->Display->Show grid" to display the grid. The chord is
+selected in "Edit->Preferences->Pitch grid". You may there select different standard
+scales, or you may choose to read the frequencies (in Hz) from a user-defined
+text file. Some of the functionality here is stolen from the "Ceres2"
+program of Jonathan F. Lee.
+<P>
+The "Probability" field gives the probability (0-1) that a given frequency
+component at a given point in time will be moved to the nearest frequency
+in the grid.
+<P>
+
+<H3>Convolve</H3>
+<I>Convolve</I> is an experimental function which is probably of little
+use. You may select different standard convolution operators (3X3 masks) used
+in digital image processing.
+<P>
+
+<H3>Warp</H3>
+<I>Warp</I> is a transform ported from Ceres3 by Stanko Juzbasic.
+<P>
+
+<H3>Spectrum Shape</H3>
+<I>Spectrum Shape</I> is also a transform ported from Ceres3 by Stanko Juzbasic.
+<P>
+
+<HR><H2>Export</H2>
+
+The <I>Export</I> functions let you send analysis data to text files
+for later processing in other programs.
+<P>
+
+<H3>Parmerud Csound scorefile</H3>
+This specialized export was made for the Swedish composer Aake Parmerud.
+The frequency axis is divided into a number of "strings".
+As soon as the amplitude in a frequency band corresponding to a
+string exceeds the <I>Trigger</I> value, a new Csound note is written
+with a duration given by the <I>Resonance</I> value. After a number
+of seconds (<I>Hysteresis</I>), the string will again enter a trigger
+mode, waiting for the amplitude to exeed the threshold.
+<P>
+ 
+<H3>Spectral peaks</H3>
+Writes all spectral peaks as time-amplitude-frequency triples.
+<P>
+<H3>Csound scorefile</H3>
+Sends the complete spectral analysis to a Csound score file. Each
+line represents a "pixel" as shown in the sonogram, and is formatted as
+follows:
+<P>
+<TT>i1      Starting_time   Duration        Frequency       Amplitude</TT>
+<P>
+Note that "Duration" will always have the same value.
+<P>
+<I>Warning!</I> The Csound score file may become ***huge***. It is
+strongly recommended to do a Sieve operation first, to reduce the
+number of non-zero pixels.
+<P>
+
+<H3>Inventor visualization</H3>
+Writes an <I>Inventor</I> ASCII file with a 3D model of the spectral landscape.
+This can be viewed with the "Ivview" program on SGI computers. Also,
+the format is largely compatible with VRML, and can be viewed in a
+web browser with the appropriate plug-in.
+<P>
+
+<H3>Single LTAS frame</H3>
+Writes a single FFT frame taken from a time point in the middle of the
+sound. Useful to extract the spectrum following an "Average" spectrum.
+(LTAS is short for Long Time Average Spectrum).
+<P>
+
+<HR><H2>Preferences</H2>
+Most of the options here have been described in their proper context under
+<I>Introduction</I> and <I>Transforms</I> above.
+<P>
+<H3>Analysis</H3>
+Here you can select the type of window function to use both in analysis
+and resynthesis. It is recommended to use the default (Hanning). Because
+the Rectangular and Hamming windows do not taper down to zero in the ends,
+they may cause clicks for certain transform operations.Also, you may select
+the FFT overlap factor.<P>
+The LPC functions are described below. We don't recommend using the
+"Stabilize poles" feature, as this may actually make matters worse
+due to a bad root finder that often doesn't converge.
+<P>
+
+<HR><H2>Paint</H2>
+Select "Edit->Preferences->Display->Show paint" to turn on the painting modus.
+Instead of marking rectangular areas, the right mouse button can now
+be used to paint small squares in the spectrum. Selecting "Keep"
+or "Remove" in the Paint menu will then keep the selected squares
+(discarding all others) or remove them (keeping all others). An
+interesting granular effect can be achieved by painting a lot of little
+squares at random, and then selecting "Keep".
+<P>
+Select "Restart" to remove all paint and start anew.
+<P>
+
+<HR><H2>Extract</H2>
+Parameters from the sound may be extracted, producing a control function
+(to see it, you must turn it on in the Settings->Display dialogue).
+The control function may then be used in the transforms, as usual,
+so that eg. a pitch contour may be used to control a spectrum shift.
+<P>
+<H3>Amplitude</H3>
+Extracts the time-varying amplitude (envelope).
+<P>
+<H3>Pitch</H3>
+Extracts the time-varying pitch, or rather frequency of the assumed
+fundamental. Requires a clean, monophonic sound! The range of the
+resulting control function is 1000 Hz.
+<P>
+<H3>Centroid</H3>
+Extracts the time-varying spectral centroid, which correlates with the
+"brightness" of the sound.
+<P>
+
+<HR><H2>Graph</H2>
+The options in this menu allows you to manipulate the control function.
+When using these functions, remember that the range of the control function
+is 0-1. This is scaled in different ways in different transforms, as
+shown in the transform dialogues.
+<P>
+The control function may also be saved and loaded under the File menu.
+The format is a text file with time/value pairs, both normalized to
+the range 0-1.
+
+<HR><H2>LPC</H2>
+Ceres now has some simple functions for spectral envelope following,
+using linear-predictive coding. For this to work, you must first use
+"Load & Analyze LPC" in the File menu. The number of poles (how detailed the 
+envelope should track the spectrum) is selected in Settings->Analysis.
+Often, you want the same sound to be analyzed by FFT and LPC, and you
+will then have to run both these operations, choosing the same file twice.
+Note that operations involving LPC will often decrease the gain considerably,
+and you must then compensate for this by using the "Gain" transform manually.
+<P>
+Some possible uses are as follows:
+<P>
+<I>Pitch shift with additive synthesis, keeping formants</I>, is
+accomplished by ticking the "Keep formants" box in the Settings->Resynthesis
+dialogue, and setting the pitch shift factor in the same dialogue.
+You must have run an LPC analysis first. Use a high synthesis threshold
+to reduce noise.
+<P>
+<I>Pitch shift with inverse FFT, keeping formants</I> is accomplished
+using the following procedure. Load & analyze your sound, both with
+FFT and with LPC. Run "Inverse-filter" in the LPC menu to flatten the
+spectrum. Run "Pitch shift" in the Transform menu, and finally
+"Filter current spectrum" in the LPC menu. Synth & Save.
+A similar technique can be used to retain formant positions after
+other transforms (spectrum shift, mirror, exponentiate, move to pitch grid).
+<P>
+<I>Cross-synthesis ("talking orchestra")</I> is done as follows. First,
+analyze your source sound (the sound that should be filtered, e.g.
+an orchestral sound) with both FFT and LPC. Use a relatively low number
+of poles, for example 20. Inverse-filter in the LPC menu to flatten the
+spectrum. Then, run a new LPC analysis on your filter sound (e.g. human
+voice) using a higher number of poles, for example 60.
+Finally, "Filter current spectrum" in the LPC menu and increase gain
+(Transform menu) if required. Synth & Save.
+
+
+<HR><H2>A final word</H2>
+
+I repeat that Ceres is under development. Please be patient with its flaws.
+And yes, it's slow, I know.
+If you have bug reports, things you want to see added, or even want to take
+part in the programming, please mail me.
+
+<H3>Why Ceres?</H3>
+Much of the functionality in this program (in particular the Sieve, Move
+to pitch grid and Export functions) regard the FFT as a <I>granular</I>
+sound processing method, where individual pixels in the sonogram can
+be considered to be discrete grains placed in time and frequency.
+<P>
+The name Ceres was therefore chosen in allusion to the Roman goddess
+of grain. So now you know!
+
+<P>
+
+<A NAME=3><HR><H2>FTP</H2>
+
+The latest version of Ceres is available from
+<A HREF="http://www.notam02.no/arkiv/">http://www.notam02.no/arkiv/</A>
+
+<P><A HREF=#top><I>top of document</I></A>

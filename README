@@ -1,0 +1,10 @@
+Ceres 
+====== 
+Ceres is a program for doing various sound effects in the frequency 
+domain and displaying sonograms. The program has been developed for 
+more than 15 years (probably), and is originally made by Øyvind Hammer.
+Smaller contributions from Jonathan Lee, Stanko Juzbasic and many others.
+
+Jeremy Salwen has a version in his hub working with gtk2:
+https://github.com/jeremysalwen/Ceres4
+

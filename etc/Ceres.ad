@@ -1,0 +1,22 @@
+*keyboardFocusPolicy: pointer
+*useSchemes:        Colors, Fonts, Spacing
+*scheme:            Base
+*useSmallFonts:     False
+
+*troughColor: Grey66
+*foreground: Black
+*background: Grey
+*topShadowColor: Light Grey
+
+! Buffed Motif
+*schemeFileList:   SgiSpec
+*sgiMode:           True
+*useEnhancedFSB:    True
+
+! *progressScale.sliderVisual:  flat_foreground
+*progressScale.slidingMode:   thermometer
+*progressScale.slanted:       true
+*progressScale.orientation:   XmHORIZONTAL
+*progressScale*foreground:    Green
+*progressScale*troughColor:   Wheat
+

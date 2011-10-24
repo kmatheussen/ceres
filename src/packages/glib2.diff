@@ -1,0 +1,25 @@
+--- configure_org	2010-08-11 16:25:29.000000000 +0200
++++ configure	2010-08-11 16:25:59.000000000 +0200
+@@ -1147,19 +1147,9 @@
+ 
+ main(){return(0);}
+ EOF
+-if { (eval echo configure:1151: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
+-  ac_cv_prog_cc_works=yes
+-  # If we can't run a trivial program, we are probably using a cross compiler.
+-  if (./conftest; exit) 2>/dev/null; then
+-    ac_cv_prog_cc_cross=no
+-  else
+-    ac_cv_prog_cc_cross=yes
+-  fi
+-else
+-  echo "configure: failed program was:" >&5
+-  cat conftest.$ac_ext >&5
+-  ac_cv_prog_cc_works=no
+-fi
++
++ac_cv_prog_cc_cross=no
++
+ rm -fr conftest*
+ ac_ext=c
+ # CFLAGS is not in ac_cpp because -g, -O, etc. are not valid cpp options.

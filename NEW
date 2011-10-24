@@ -1,0 +1,285 @@
+
+Ceres 0.56 -> 0.57
+------------------
+-Added check for patch
+
+
+Ceres 0.55 -> 0.56
+------------------
+-Changed default resynthesis save type to IFFT.
+-Small build fix.
+
+
+Ceres 0.54 -> 0.55
+------------------
+-Compiles on 64 bit Ubuntu 10. Huge thanks to Menno for
+ help testing.
+-Various build improvements
+
+
+Ceres 0.53 -> 0.54
+------------------
+-Use newer config.guess and config.sub files in glib
+ and gtk. Thanks to Menno for reporting the bug.
+
+
+Ceres 0.52 -> 0.53
+------------------
+-Fixed a couple of crashes when playing.
+
+
+Ceres 0.51 -> 0.52
+------------------
+-Included gtk1 and glib1 in build. Seems like Ubuntu/Debian doesn't
+ provide gtk1 anymore.
+
+
+Ceres 0.50 -> 0.51
+------------------
+-Various build fixes.
+ Thanks to Hermann Brummer and Dave Phillips for
+ bug reports and help locating potential problems
+ on Debian/SID and Ubuntu.
+
+
+Ceres 0.49 -> 0.50
+------------------
+-Included libxml. Not available in repos for Ubuntu.
+ Thanks to Hermann Brummer for the report!
+
+
+Ceres 0.48 -> 0.49
+------------------
+-Various build fixes.
+ (Thanks to Ebrahim Mayat!)
+
+
+Ceres 0.46 -> 0.47
+------------------
+-Various makefile fixes
+
+
+Ceres 0.45 -> 0.46
+------------------
+-Fix to make pygtk1 build for Python 2.5. Bug found by Dave Phillips.
+
+
+Ceres 0.44 -> 0.45
+------------------
+-Changed so that pygtk1 and libglade are compiled up when writing
+ "make" and installed when writing "make install". This makes it
+ much easier for linux distribution package maintainers.
+
+
+Ceres 0.42 -> 0.44
+------------------
+-Fixed some compiling problems for gcc 4.0.1.
+-Give warning about the additiv resynthesis. It might not
+ produce correct result.
+-Disabled built in support for jack. Sndlib does a much
+ better job supporting jack than ceres.
+-Included latest version of sndlib. The previous included version
+ seemed to segfault the program at startup. Well, works now.
+
+
+Ceres 0.41 -> 0.42
+------------------
+-Fixed some bugs in the Makefile.
+
+
+Ceres 0.41 -> 0.42
+------------------
+-Actually apply the fix for the (horrible) bug that caused
+ ceres to crash on newer linux distributions. (Sorry!)
+
+
+Ceres 0.40 -> 0.41
+------------------
+-Fixed a (horrible) bug that caused ceres to crash on newer linux
+ distributions.
+-Simplified the install process a lot. pygtk1, libglade and sndlib
+ is now included in the distribution and is/can be installed
+ automatically if needed.
+-Connect to jack-server right after starting up ceres, not right
+ before playing for the first time.
+
+
+Ceres 0.39 -> 0.40
+------------------
+-The BPM image loader segfaulted, and was generally buggy. Hopefully fixed.
+-Standard number of LPC poles was set to 5 instead of 50. Typo. Fixed.
+-LPC->Filter current spectrum and LPC->Inverse filter spectrum did not
+ store undo data before processing. Fixed.
+-Added a progressbar when creating temporary files for large sounds.
+
+
+New in Ceres 0.38 -> 0.39
+-------------------------
+-Doing realtime preview made ceres segfault if jack server was not
+ running. Fixed.
+-Values for the control function nodes is written in the editor.
+ Values are not shown if "Show node values" is unchecked in the preferences
+ window.
+
+
+New in Ceres 0.37 -> 0.38
+-------------------------
+-Updated default Jack port names from
+ alsa_pcm:[out/in]_* to alsa_pcm:[playback/record]_*
+-Test for pygtk2 instead of pygtk1, and writes a message
+ to stdout about what to do if pygtk2 is installed instead of pygtk1.
+-Made the Save button in the preference window also update
+ current settings. Less confusing.
+-Increased max number of soundchannels from 4 to 8.
+-Added option to choose between "ceres" and "ceres-<pid>"
+ for the jack client name.
+-Wrote an explanation how to install ceres on a machine with
+ pygtk2 instead of pygtk1.
+
+
+New in Ceres 0.36 -> 0.37
+-------------------------
+-Fixed broken LPC.
+-Fixed very serious bugs in the "sieve", "Spectrum shift"
+ and "Spectral subtraction" transforms. Bugs introduced
+ in V0.30.
+            *They should now sound as they should.*
+ Oops.
+-Fixed a semi-serious bug in the convolve transform.
+-Added "make install" to the makefile. Set the "INSTALLPATH"
+ variable in the makefile.
+-Removed some debug printings.
+
+
+New in Ceres 0.35 -> 0.36
+-------------------------
+-Removed a bug that caused the gain transform to not work very well.
+-Added cut, copy and paste in the edit menu. Works the same as in Ceres3.
+-Added credits to Johnathan F. Lee (Ceres2) and Stanko Juzbasic (Ceres3)
+ in the about dialog. Previously, some credits where only mentioned in
+ the source.
+-Added sndlib.a and sndlib.h to the distribution. Static oss/linux compiled.
+ (sndlib.a seems to be a bit troublesome to compile up sometimes.)
+-Added note about a common problem regarding pygtk in the INSTALL file
+ that usually makes ceres crash. 
+
+
+New in Ceres 0.34 -> 0.35
+-------------------------
+-Removed limitation in size of PBM ascii image to load.
+-Fixed a bug when loading PBM ascii images.
+-Added support for libsndfile V1. (V0 is still supported too.)
+-Removed some compiler warnings.
+
+
+New in Ceres 0.33 -> 0.34
+-------------------------
+
+-Fixed a Segfault if doing a realtime preview of a transform without
+ having played earlier.
+-Removed the <stdbool.h> replacement code which was added by a mistake
+ in 0.33.
+
+
+New in Ceres 0.32 -> 0.33
+-------------------------
+
+-Fixed time-stretching. Time-stretch did not work
+ in any of the 0.3x versions.
+-Open file file-requester shows info about the soundfiles.
+-Fixed the default-values in the makefile, which was
+ wrong in 0.32.
+
+
+New in Ceres 0.31 -> 0.32
+-------------------------
+
+-Fixed compiling issues with Jack. (Old jack-types used)
+
+-Added option to change paint size.
+
+
+
+
+New in Ceres 0.30 -> 0.31
+-------------------------
+
+-Preview and Preview Realtime did only work properly with
+ mono sounds. Fixed.
+
+-Preview, Preview Realtime and Play wasn't allways stopped
+ before doing other things (they are threaded). Could cause segmentation fault.
+ Hopefully fixed.
+
+-Made it possible to play while undoing and redoing.
+
+-Included the forgotten Ceres.ad file.
+
+-Made the Makefile a bit easier to edit.
+
+-Full support for LessTif.
+
+-Made it easier to compile up and run Ceres.
+
+
+-/Kjetil M., 13.7.2002
+
+
+
+
+New in Ceres 0.15 -> 0.30
+-------------------------
+
+-Optimized additiv resynthesis function. ~3 times faster on IA32.
+
+-Double buffer graphics.
+
+-Improved Graphical control for the control functions.
+
+-Improved GUI. 
+
+-All 16bit/24bit/32bit/float/double soundformats (ao. wav and aiff)
+ supported by libsndfile is supported. ( http://www.zip.com.au/~erikd/libsndfile/ )
+
+-Realtime playing of current soundbuffer.
+
+-libsnd support.
+
+-jack support.
+
+-libaudio support (for the SGI, untested)
+
+-Preview of all transforms. (Limited length)
+
+-Realtime preview of all transforms. Its a hack, and full quality is not
+ gained. But one gets a good impression for most of the transforms.
+
+-Matlab export function. (Quite equal to the csound export function)
+
+-Large soundfiles stored on disk instead of memory. Very little
+ speed-loss (about 1% slower for idedma/scsi-disks) because
+ of this, except for some transforms (blur, shear,
+ average, warp and spectrum shape) that needs to reorganize all data before and after processing.
+ The reorganizing takes about the same time it takes to save a file
+ using IFFT resynthesis 16 times (rough guess, disk access is what takes time).
+ The alternative is to let blur, shear, average, etc. use about window-size/2 times
+ longer time to process, or let everything take twice as much time.
+ Processing shorter sounds, which is stored in memory, does not
+ have to reorganize data, and takes the same time as before.
+
+-Ported the warp and spectrum shape transforms from ceres3.
+
+-Configurations can be saved in $(HOME)/.ceres.
+
+-More configuration options.
+
+-Unlimited or limited undo and redo.
+
+-Made it harder to compile up and run Ceres.
+
+
+-/Kjetil M., 10.7.2010
+
+
+
+

@@ -1,0 +1,69 @@
+
+
+FAST INSTALL
+	cd src
+	make
+	make install
+
+        (to install in a different directory than /usr/local,
+         change the INSTALLPATH variable in src/Makefile)
+
+
+
+REQUIRED PACKAGES
+	Python     (Tested with 2.x and 1.5)
+        glib       (included, built auotmatically)
+        gtk+       (included, built auotmatically)
+	libxml     (included, built automatically)
+	pygtk1     (included, built automatically)
+	libglade   (included, built automatically)
+	libsndfile (1.0.x or 0.0.28)
+	libsnd     (included, build automatically)
+	Motif      (included, built automatically)
+
+        gtk+ and glib depend on the following packages:
+                libxcb-devel
+                libXext-devel
+                libXau-devel
+                libXdmcp-devel
+
+	pygtk1 and libglade depend on the following packages:
+		python-devel
+
+	libsnd depends on the following packages (if compiled with jack):
+		jack
+		jack-devel (jack-audio-connection-kit-devel)
+		libsamplerate
+		libsamplerate-devel
+
+        motif requires the following packages:
+	        xbitmaps
+	        flex
+		libXmu-devel
+		libXt-devel
+		libXext-devel
+		libXp-devel
+		libXft-devel
+		libXrender-devel
+		fontconfig-devel
+		freetype-devel
+		libjpeg-devel
+		libpng-devel
+
+LINKS TO PROGRAMS AND LIBRARIES USED BY CERES
+	Working at the time of writing, 8.7.2002:
+	-Glade: http://glade.gnome.org
+	-Jack: http://jackit.sourceforge.net
+	-LessTif: http://www.lesstif.org
+	-libglade: http://www.daa.com.au/~james/gnome/
+	-libsnd: http://www-ccrma.stanford.edu/software/snd/sndlib/
+	-libsndfile: http://www.zip.com.au/~erikd/libsndfile/
+	-pygtk: http://www.daa.com.au/~james/pygtk/
+	-Python: http://www.python.org
+	-OpenMotif: http://www.openmotif.org
+	-Swig: http://www.swig.org
+
+
+-Kjetil M. / last updated 10.7.2010
+
+

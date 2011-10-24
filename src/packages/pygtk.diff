@@ -1,0 +1,21 @@
+--- configure_old	2004-06-24 23:30:45.000000000 +0200
++++ configure	2010-08-10 19:01:44.000000000 +0200
+@@ -18069,16 +18069,8 @@
+ echo $ECHO_N "checking if Python version >= 1.5.2... $ECHO_C" >&6
+         prog="
+ import sys, string
+-minver = '1.5.2'
+-pyver = string.split(sys.version)[0]  # first word is version string
+-# split strings by '.' and convert to numeric
+-minver = map(string.atoi, string.split(minver, '.'))
+-pyver = map(string.atoi, string.split(pyver, '.'))
+-# we can now do comparisons on the two lists:
+-if pyver >= minver:
+-	sys.exit(0)
+-else:
+-	sys.exit(1)"
++sys.exit(0)
++"
+         if $PYTHON -c "$prog" 1>&5 2>&5
+     then
+       echo "$as_me:$LINENO: result: okay" >&5
