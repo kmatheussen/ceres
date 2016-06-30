@@ -1,8 +1,8 @@
 # Makefile for Ceres
 #
 
-VERSION=0.57
-YEAR=2010
+VERSION=0.58
+YEAR=2016
 
 
 
@@ -17,8 +17,8 @@ YEAR=2010
 #----------------USER SETTINGS-------------------------------
 
 #  No trailing slash!
-INSTALLPATH=/home/kjetil/site
-#INSTALLPATH=/usr/local
+#INSTALLPATH=/home/kjetil/site
+INSTALLPATH=/usr/local
 
 
 # If you don't want to compile sndlib with jack-support, set SNDLIBWITHJACK to nothing.
@@ -307,14 +307,14 @@ run:
 	python ../bin/ceres.py
 
 
-../bin/ceres: Makefile
+../bin/ceres: Makefile ../bin
 #	rm -f ../bin/ceres
 	echo "#!/bin/sh" >../bin/ceres
 	echo 'export LD_PRELOAD="$(PYGTK1PATH)/lib/libgtk-1.2.so.0 $(PYGTK1PATH)/lib/libgdk-1.2.so.0 $(PYGTK1PATH)/lib/libgmodule-1.2.so.0 $(PYGTK1PATH)/lib/libglib-1.2.so.0 $(PYGTK1PATH)/lib/libgthread.so"' >>../bin/ceres
 	echo "LD_LIBRARY_PATH=$(PYGTK1PATH)/lib:$LD_LIBRARY_PATH python $(SHAREPATH)/bin/ceres.py \$$@" >>../bin/ceres	
 	chmod a+rx ../bin/ceres
 
-../bin/ceres.py: ceres.py Makefile
+../bin/ceres.py: ceres.py Makefile ../bin
 	rm -f ../bin/ceres.py
 	echo "#!$(PYTHONEXE)" >>../bin/ceres.py
 	echo "" >>../bin/ceres.py
@@ -323,7 +323,7 @@ run:
 	cat ceres.py >>../bin/ceres.py
 	chmod a+rx ../bin/ceres.py
 
-../bin/ceresconfig.py: ceresconfig.py Makefile
+../bin/ceresconfig.py: ceresconfig.py Makefile ../bin
 	rm -f ../bin/ceresconfig.py
 	echo "#!$(PYTHONEXE)" >>../bin/ceresconfig.py
 	echo "" >>../bin/ceresconfig.py
@@ -335,8 +335,14 @@ run:
 	cat ceresconfig.py >>../bin/ceresconfig.py
 	chmod a+rx ../bin/ceresconfig.py
 
-../lib/cerescmodule.so: $(OBJS) Makefile jacklib.comp
+../bin:
+	mkdir ../bin
+
+../lib/cerescmodule.so: $(OBJS) Makefile jacklib.comp ../lib
 	$(CC) -shared $(OBJS) -o ../lib/cerescmodule.so $(DAS-LDFLAGS)
+
+../lib:
+	mkdir ../lib
 
 packages/all_compiled:
 	cd packages && make all_compiled PYGTK1PATH=$(PYGTK1PATH) SNDLIBWITHJACK=$(SNDLIBWITHJACK)

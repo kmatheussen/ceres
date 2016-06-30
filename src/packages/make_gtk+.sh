@@ -10,7 +10,7 @@ cp -f ../config.sub .
 export PATH=`pwd`/../install-dir/bin:$PATH
 export LD_LIBRARY_PATH=`pwd`/../install-dir/lib:$LD_LIBRARY_PATH
 
-if ./configure --prefix=`pwd`/../install-dir --with-glib-prefix=`pwd`/../install-dir/ --with-glib-exec-prefix=`pwd`/../install-dir/ && make && make install ; then
+if ./configure --prefix=`pwd`/../install-dir --with-glib-prefix=`pwd`/../install-dir/ --with-glib-exec-prefix=`pwd`/../install-dir/ && make CFLAGS="-DG_INLINE_FUNC=" && make install CFLAGS="-DG_INLINE_FUNC=" ; then
     cd ..
     touch gtk+_compiled
 else
